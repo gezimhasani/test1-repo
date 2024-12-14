@@ -28,7 +28,7 @@ jobs:
 
 
           # Check if the HTTP status code starts with 20 (successful responses in the 2xx range)
-          if [[ ! "$RESPONSE" =~ ^20 ]]; then
+          if [[ ! "$RESPONSE" =~ ^30 ]]; then
             echo "Error triggering repository dispatch, HTTP status code: $HTTP_STATUS"
             exit 1  # Exit with error code to stop further steps
           fi
