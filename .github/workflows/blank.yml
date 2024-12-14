@@ -26,15 +26,9 @@ jobs:
             https://api.github.com/repos/gezimhasani/test2-repo/dispatches \
             -d '{"event_type": "test-event", "client_payload": {"unit": false, "integration": true}}')
 
-          # Extract HTTP status code
-          HTTP_STATUS="${RESPONSE: -3}"  # Last 3 characters are the status code
-          BODY="${RESPONSE%???}"  # Remove the last 3 characters to get the body
-
-          # Output response body for debugging
-          echo "Response Body: $BODY"
 
           # Check if the HTTP status code starts with 20 (successful responses in the 2xx range)
-          if [[ ! "$HTTP_STATUS" =~ ^20 ]]; then
+          if [[ ! "$RESPONSE" =~ ^20 ]]; then
             echo "Error triggering repository dispatch, HTTP status code: $HTTP_STATUS"
             exit 1  # Exit with error code to stop further steps
           fi
