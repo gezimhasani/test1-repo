@@ -33,8 +33,8 @@ jobs:
           # Output response body for debugging
           echo "Response Body: $BODY"
 
-          # Check if the HTTP status code is not 200 (successful)
-          if [ "$HTTP_STATUS" -ne 200 ]; then
+          # Check if the HTTP status code is 200 or 204 (both are considered success)
+          if [[ "$HTTP_STATUS" -ne 200 && "$HTTP_STATUS" -ne 204 ]]; then
             echo "Error triggering repository dispatch, HTTP status code: $HTTP_STATUS"
             exit 1  # Exit with error code to stop further steps
           fi
