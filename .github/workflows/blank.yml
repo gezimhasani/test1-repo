@@ -8,7 +8,7 @@ on:
 jobs:
   trigger-dispatch:
     runs-on: ubuntu-latest
-      ##
+
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3  # Checkout the code of the current repository
@@ -18,7 +18,7 @@ jobs:
         run: |
           echo "Triggering repository_dispatch to test2-repo"
           
-          # Perform the curl call to trigger repository_dispatch and capture the HTTP status code
+          # Perform the curl call to trigger repository_dispatch, capture both output and status code
           RESPONSE=$(curl -s -w "%{http_code}" -o response.json -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
@@ -27,12 +27,15 @@ jobs:
             -d '{"event_type": "test-event", "client_payload": {"unit": false, "integration": true}}')
 
           # Extract HTTP status code
-          HTTP_STATUS=$(echo "$RESPONSE" | tail -n 1)
+          HTTP_STATUS="${RESPONSE: -3}"  # Last 3 characters are the status code
+          BODY="${RESPONSE%???}"  # Remove the last 3 characters to get the body
 
-          # Check if HTTP status code is not 200 (successful)
+          # Output response body for debugging
+          echo "Response Body: $BODY"
+
+          # Check if the HTTP status code is not 200 (successful)
           if [ "$HTTP_STATUS" -ne 200 ]; then
             echo "Error triggering repository dispatch, HTTP status code: $HTTP_STATUS"
-            cat response.json  # Output the response for debugging
             exit 1  # Exit with error code to stop further steps
           fi
           
