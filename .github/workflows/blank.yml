@@ -15,7 +15,7 @@ jobs:
 
       - name: Trigger repository_dispatch to test2-repo
         id: trigger_dispatch
-        continue-on-error: true
+        continue-on-error: false
         run: |
           echo "Triggering repository_dispatch to test2-repo"
           curl -v -L \
