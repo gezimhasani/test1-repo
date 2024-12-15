@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - uses: philipdelorenzo/sync-action-status@<version>
           with:
           gh_token: ${{ secrets.GH_TOKEN }} # Add this token to your Github Action Secrets
