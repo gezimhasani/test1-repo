@@ -3,8 +3,8 @@ name: Example Workflow
 on:
   push:
     branches:
-      - main
-
+      - master
+#
 jobs:
   trigger-dispatch:
     runs-on: ubuntu-latest
