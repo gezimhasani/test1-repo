@@ -14,10 +14,11 @@ jobs:
       uses: actions/checkout@v3
 #
     - name: Trigger repository dispatch event for multiple repositories
-      uses: guilouro/multiple-repositories-dispatch@v1.0.2  # Correct reference for external action
-      with:
-        repo_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        repositories: |
-          gezimhasani/test2-repo
-        event_type: 'test-event'
-        #client_payload: '{"unit": false, "integration": true}'
+      uses: philipdelorenzo/sync-action-status@<version>
+        with:
+        gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Add this token to your Github Action Secrets
+        event_type: test-event
+        current_repo: ${{ github.repository }}
+        # You must use this action ONLY with repositories that you own
+        target_repo: "gezimhasani/test2-repo"
+        debug: ${{ github.event.inputs.debug }} # See below step for setting up debug mode
