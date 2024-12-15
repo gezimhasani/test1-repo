@@ -10,15 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-#
-    - name: Trigger repository dispatch event for multiple repositories
-      uses: philipdelorenzo/sync-action-status@v1.0.2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Trigger repository dispatch event for multiple repositories
+        uses: philipdelorenzo/sync-action-status@v1.0.2  # Replace with a specific version
         with:
-        gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Add this token to your Github Action Secrets
-        event_type: test-event
-        current_repo: ${{ github.repository }}
-        # You must use this action ONLY with repositories that you own
-        target_repo: "gezimhasani/test2-repo"
-        debug: ${{ github.event.inputs.debug }} # See below step for setting up debug mode
+          gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Add this token to your Github Action Secrets
+          event_type: test-event
+          current_repo: ${{ github.repository }}
+          target_repo: "gezimhasani/test2-repo"
+          debug: ${{ github.event.inputs.debug }}  # Ensure 'debug' is passed correctly
