@@ -1,9 +1,9 @@
-name: 'Trigger Repository Dispatch'
+name: Trigger Repository Dispatch to test2-repo
 
 on:
   push:
     branches:
-      - master
+      - master  # Trigger on push to master branch
 
 jobs:
   trigger-dispatch:
@@ -11,12 +11,7 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Checkout the code of the current repository
 
-      - name: Trigger repository_dispatch to test2-repo
-        uses: ./.github/actions/trigger-repo-dispatch
-        with:
-          personal_access_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          target_repo: "gezimhasani/test2-repo"
-          event_type: "test-event"
-          client_payload: '{"unit": false, "integration": true}'
+      - name: Trigger repository_dispatch using custom action
+        uses: ./.github/actions/trigger-repo-dispatch  # Calling the custom action we just created
