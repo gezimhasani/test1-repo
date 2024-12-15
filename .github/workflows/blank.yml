@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requirements.txt  # Install any required dependencies for your script
+        pip install -r requirements.txt  # Install any required dependencies for your script
 
     - name: Run Python script to sync status
       run: |
