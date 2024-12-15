@@ -16,9 +16,9 @@ jobs:
       - name: Trigger repository dispatch event for multiple repositories
         uses: philipdelorenzo/sync-action-status@v0.1.0
           with:
-          gh_token: ${{ secrets.GH_TOKEN }} # Add this token to your Github Action Secrets
-          event_type: test-event
-          current_repo: ${{ github.repository }}
-          # You must use this action ONLY with repositories that you own
-          target_repo: "gezimhasani/test2-repo"
-          debug: ${{ github.event.inputs.debug }} # See below step for setting up debug mode
+            gh_token: ${{ secrets.GH_TOKEN }} # Add this token to your Github Action Secrets
+            event_type: test-event
+            current_repo: ${{ github.repository }}
+            # You must use this action ONLY with repositories that you own
+            target_repo: "gezimhasani/test2-repo"
+            debug: ${{ github.event.inputs.debug }} # See below step for setting up debug mode
