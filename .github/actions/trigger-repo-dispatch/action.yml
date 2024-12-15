@@ -27,8 +27,11 @@ runs:
         # Get event_type and client_payload inputs
         EVENT_TYPE="${{ inputs.event_type }}"
         CLIENT_PAYLOAD="${{ inputs.client_payload }}"
-        echo $EVENT_TYPE
-        echo $CLIENT_PAYLOAD
+
+        # Echo for debugging
+        echo "Event Type: $EVENT_TYPE"
+        echo "Client Payload: $CLIENT_PAYLOAD"
+
         # Perform the curl call to trigger repository_dispatch, capture both output and status code
         RESPONSE=$(curl -s -w "%{http_code}" -o response.json -X POST \
           -H "Accept: application/vnd.github+json" \

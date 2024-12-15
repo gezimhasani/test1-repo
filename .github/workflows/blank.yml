@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-#
+
 jobs:
   trigger-dispatch:
     runs-on: ubuntu-latest
@@ -19,4 +19,4 @@ jobs:
         personal_access_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         target_repo: 'gezimhasani/test2-repo'
         event_type: 'test-event'
-        client_payload: '{"unit": false, "integration": true}'
+        client_payload: '{"unit": false, "integration": true}'  # Pass valid JSON string here
