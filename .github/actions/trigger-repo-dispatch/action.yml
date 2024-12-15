@@ -20,20 +20,23 @@ runs:
     - name: Trigger repository dispatch
       run: |
         echo "Triggering repository_dispatch to ${{ inputs.target_repo }}"
-        
+
+        # Prepare the client payload
+        PAYLOAD="${{ inputs.client_payload }}"
+
         # Perform the curl call to trigger repository_dispatch, capture both output and status code
         RESPONSE=$(curl -s -w "%{http_code}" -o response.json -X POST \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ inputs.personal_access_token }}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
           https://api.github.com/repos/${{ inputs.target_repo }}/dispatches \
-          -d "{\"event_type\": \"${{ inputs.event_type }}\", \"client_payload\": ${inputs.client_payload}}")
+          -d "{\"event_type\": \"${{ inputs.event_type }}\", \"client_payload\": ${PAYLOAD}}")
 
         # Check if the HTTP status code starts with 2 (successful responses in the 2xx range)
         if [[ ! "$RESPONSE" =~ ^2 ]]; then
           echo "Error triggering repository dispatch, HTTP status code: $RESPONSE"
           exit 1  # Exit with error code to stop further steps
         fi
-        
+
         echo "Successfully triggered repository dispatch."
-      shell: bash  # Specify bash shell here
+      shell: bash
