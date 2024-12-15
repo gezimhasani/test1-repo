@@ -15,7 +15,6 @@ inputs:
     required: true
 runs:
   using: "composite"
-  shell: bash
   steps:
     - name: Trigger repository_dispatch to test2-repo
       run: |

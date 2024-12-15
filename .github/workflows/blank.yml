@@ -20,3 +20,4 @@ jobs:
           target_repo: gezimhasani/test2-repo  # Target repository
           event_type: test-event  # Event type
           client_payload: '{"unit": false, "integration": true}'  # Client payload
+        shell: bash  # Specify the shell here (workflow-level)
