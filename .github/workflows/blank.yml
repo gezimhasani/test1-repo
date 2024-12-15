@@ -1,9 +1,9 @@
-name: Trigger Repository Dispatch to test2-repo
+name: 'Trigger Repository Dispatch'
 
 on:
   push:
     branches:
-      - master  # Trigger on push to master branch
+      - master
 
 jobs:
   trigger-dispatch:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Trigger repository_dispatch to test2-repo
         uses: ./.github/actions/trigger-repo-dispatch
