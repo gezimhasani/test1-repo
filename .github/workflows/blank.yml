@@ -13,10 +13,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Trigger repository dispatch event
-      uses: ./.github/actions/trigger-repo-dispatch
+    - name: Trigger repository dispatch event for multiple repositories
+      uses: guilouro/multiple-repositories-dispatch@v1
       with:
         personal_access_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        target_repo: 'gezimhasani/test2-repo'
+        repositories: |
+          gezimhasani/test2-repo
         event_type: 'test-event'
-        #client_payload: '{"unit": false, "integration": true}'
