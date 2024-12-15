@@ -10,7 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: philipdelorenzo/sync-action-status@<version>
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Trigger repository dispatch event for multiple repositories
+        uses: philipdelorenzo/sync-action-status@v0.1.0
           with:
           gh_token: ${{ secrets.GH_TOKEN }} # Add this token to your Github Action Secrets
           event_type: test-event
