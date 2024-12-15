@@ -10,24 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Echo the GH_TOKEN (Masked for security)
-        run: |
-          echo "GH_TOKEN is set."
-          # Mask the token output to avoid exposing it
-          echo "GH_TOKEN=${{ secrets.GH_TOKEN }}"
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
-      - name: Trigger repository dispatch event for multiple repositories
-        uses: philipdelorenzo/sync-action-status@v0.1.0
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Ensure token is passed to the action
-        with:
-          gh_token: ${{ secrets.GH_TOKEN }}  # Pass token as argument to the action
-          event_type: test-event
-          current_repo: ${{ github.repository }}
-          target_repo: "gezimhasani/test2-repo"
-          debug: ${{ github.event.inputs.debug }}  # Optional for debug mode
+    - name: Trigger repository dispatch event
+      uses: ./.github/actions/trigger-repo-dispatch
+      with:
+        personal_access_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        target_repo: 'gezimhasani/test2-repo'
+        event_type: 'test-event'
+        #client_payload: '{"unit": false, "integration": true}'
