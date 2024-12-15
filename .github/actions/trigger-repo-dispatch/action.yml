@@ -13,8 +13,8 @@ inputs:
     description: 'The event type that will be triggered.'
     required: true
   client_payload:
-    description: 'Additional payload to be sent with the dispatch event (JSON format).'
-    required: true
+    description: 'JSON payload with extra information about the webhook event that the action or workflow may use.'
+    default: '{}'
 
 runs:
   using: 'composite'
@@ -30,7 +30,7 @@ runs:
           -H "Authorization: Bearer ${{ inputs.personal_access_token }}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
           https://api.github.com/repos/${{ inputs.target_repo }}/dispatches \
-          -d '{"event_type": "${{ inputs.event_type }}", "client_payload": {"unit": false, "integration": true}}')
+          -d '{"event_type": "${{ inputs.event_type }}", "client_payload": ${{ inputs.client_payload }}}')
 
         # Check if the HTTP status code starts with 2 (successful responses in the 2xx range)
         if [[ ! "$RESPONSE" =~ ^2 ]]; then
