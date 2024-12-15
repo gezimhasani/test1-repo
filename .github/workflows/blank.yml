@@ -14,4 +14,9 @@ jobs:
         uses: actions/checkout@v3  # Checkout the code of the current repository
 
       - name: Trigger repository_dispatch using custom action
-        uses: ./.github/actions/trigger-repo-dispatch  # Calling the custom action we just created
+        uses: ./.github/actions/trigger-repo-dispatch  # Call the custom action
+        with:
+          personal_access_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Pass the secret
+          target_repo: gezimhasani/test2-repo  # Target repository
+          event_type: test-event  # Event type
+          client_payload: '{"unit": false, "integration": true}'  # Client payload
