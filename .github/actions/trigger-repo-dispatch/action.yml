@@ -24,6 +24,7 @@ runs:
       run: |
         echo "Triggering repository_dispatch to ${{ inputs.target_repo }}"
         echo ${{ inputs.event_type }}
+        echo ${{ inputs.client_payload }}
         # Perform the curl call to trigger repository_dispatch, capture both output and status code
         RESPONSE=$(curl -s -w "%{http_code}" -o response.json -X POST \
           -H "Accept: application/vnd.github+json" \
