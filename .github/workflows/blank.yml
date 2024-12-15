@@ -11,13 +11,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-
+        uses: actions/checkout@v4
+        
       - name: Trigger repository dispatch event for multiple repositories
-        uses: philipdelorenzo/sync-action-status@v0.1.0  # Replace with a specific version
+        uses: philipdelorenzo/sync-action-status@v0.1.0
         with:
-          gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Add this token to your Github Action Secrets
+          gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           event_type: test-event
           current_repo: ${{ github.repository }}
           target_repo: "gezimhasani/test2-repo"
-          debug: ${{ github.event.inputs.debug }}  # Ensure 'debug' is passed correctly
+          debug: ${{ github.event.inputs.debug }}
+        env:
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Set GH_TOKEN explicitly
