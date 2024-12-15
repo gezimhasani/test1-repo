@@ -2,7 +2,7 @@ name: 'Trigger Repository Dispatch'
 description: 'Triggers a repository_dispatch to another repository'
 inputs:
   personal_access_token:
-    description: 'PAT with required permissions'
+    description: 'Personal Access Token with required permissions'
     required: true
   target_repo:
     description: 'The repository to trigger the dispatch on'
@@ -14,9 +14,10 @@ inputs:
     description: 'Client-specific payload'
     required: false
 runs:
-  using: 'bash'
+  using: 'composite'  # Updated to 'composite' for script execution
   steps:
     - name: Trigger repository_dispatch to target repository
+      shell: bash  # Specify the shell here
       run: |
         RESPONSE=$(curl -s -w "%{http_code}" -o response.json -X POST \
           -H "Accept: application/vnd.github+json" \
