@@ -1,22 +1,22 @@
-name: Trigger Repository Dispatch to test2-repo
+name: Example Workflow
 
 on:
   push:
     branches:
-      - master  # Trigger on push to master branch
+      - main
 
 jobs:
   trigger-dispatch:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3  # Checkout the code of the current repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Trigger repository_dispatch using custom action
-        uses: ./.github/actions/trigger-repo-dispatch  # Call the custom action
-        with:
-          personal_access_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Pass the secret
-          target_repo: gezimhasani/test2-repo  # Target repository
-          event_type: test-event  # Event type
-          client_payload: '{"unit": false, "integration": true}'  # Client payload
+    - name: Trigger repository dispatch event
+      uses: ./.github/actions/trigger-repo-dispatch
+      with:
+        personal_access_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        target_repo: 'gezimhasani/test2-repo'
+        event_type: 'test-event'
+        client_payload: '{"unit": false, "integration": true}'
